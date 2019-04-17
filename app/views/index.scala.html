@@ -1,7 +1,13 @@
-@(contatos: List[Contato])
+@(contatos: List[Contato], contatoForm: Form[Contato] = null)
 
 @main("Agenda") {
   <h1>Agenda</h1>
+  @b4.vertical.form(routes.AgendaController.novo) { implicit vfc =>
+  @b4.email( contatoForm("email"), '_label -> "Email", 'placeholder -> "example@mail.com" )
+  @b4.password( contatoForm("nome"), '_label -> "Password", 'placeholder -> "Password" )
+  @b4.submit('class -> "btn btn-default"){ Sign in }
+}
+  
   <table>
   <tr><th>Nome</th></tr>
   @for(contato <- contatos) {
