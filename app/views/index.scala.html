@@ -1,0 +1,11 @@
+@(contatos: List[Contato])
+
+@main("Agenda") {
+  <h1>Agenda</h1>
+  <table>
+  <tr><th>Nome</th></tr>
+  @for(contato <- contatos) {
+ 	<tr><td>@contato.nome</td></tr>
+  }
+  </table>
+}

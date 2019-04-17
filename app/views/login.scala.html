@@ -1,0 +1,17 @@
+@()
+
+@main("Login") {
+  <h1>Login</h1>
+  
+
+  <form action="/login" method="post"  class="form-inline">
+  <div class="form-group mx-sm-3 mb-2">
+    <input type="text" name="email" class="form-control" placeholder="email">
+  </div>
+  <div class="form-group mx-sm-3 mb-2">
+  
+    <input type="password" name="senha" class="form-control" placeholder="senha">
+  </div>
+    <button type="submit" class="btn btn-primary mb-2">Logar</button>
+  </form>
+}
