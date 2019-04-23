@@ -1,11 +1,12 @@
 @(contatos: List[Contato], contatoForm: Form[Contato])
+@import routes.{AgendaController => r}
 
 @main("Agenda") {
   <h1>Agenda</h1>
   @tags.form(contatoForm)
-
-  <table class="table table-striped">
-    <thead>
+  <i class="fa fa-remove"></i>
+  <table class="table table-striped table-bordered table-sm">
+    <thead class="thead-dark">
       <tr><th scope="col">Nome</th>
           <th scope="col">E-mail</th>
           <th scope="col">Telefone</th>
@@ -14,10 +15,10 @@
     </thead>
     <tbody>
     @for(contato <- contatos) {
-      <tr><td><a href="@routes.AgendaController.editar(contato.getEmail)">@contato.nome</a></td>
+      <tr><td><a href="@r.editar(contato.getEmail)">@contato.nome</a></td>
           <td>@contato.email</td>
           <td>@contato.telefone</td>
-          <td><a href="@routes.AgendaController.excluir(contato.getEmail)" class="btn btn-danger btn-sm active" role="button">Excluir</a></td>
+          <td><a href="@r.excluir(contato.getEmail)" class="btn btn-danger btn-sm active" role="button">Excluir</a></td>
         </tr>
     }
     </tbody>
