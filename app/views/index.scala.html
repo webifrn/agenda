@@ -8,13 +8,17 @@
     <thead>
       <tr><th scope="col">Nome</th>
           <th scope="col">E-mail</th>
-          <th scope="col">Telefone</th></tr>
+          <th scope="col">Telefone</th>
+          <th scope="col">Ações</th>
+        </tr>
     </thead>
     <tbody>
     @for(contato <- contatos) {
-      <tr><td>@contato.nome</td>
+      <tr><td><a href="@routes.AgendaController.editar(contato.getEmail)">@contato.nome</a></td>
           <td>@contato.email</td>
-          <td>@contato.telefone</td></tr>
+          <td>@contato.telefone</td>
+          <td><a href="@routes.AgendaController.excluir(contato.getEmail)" class="btn btn-danger btn-sm active" role="button">Excluir</a></td>
+        </tr>
     }
     </tbody>
   </table>

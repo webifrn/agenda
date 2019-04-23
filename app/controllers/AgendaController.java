@@ -19,6 +19,9 @@ public class AgendaController extends Controller {
 	private List<Contato> getAgenda(String email) {
 		return agenda.computeIfAbsent(email, k -> new ArrayList<>());
 	}
+	private Optional<Contato> getContato(String usuario, String email) {
+		return getAgenda(usuario).stream().filter(c -> c.email.equals(email)).findFirst();
+	}
 
 	@Inject
 	FormFactory formFactory;
@@ -31,15 +34,6 @@ public class AgendaController extends Controller {
 		List<Contato> contatos = getAgenda(email);
 		Form<Contato> contatoForm = formFactory.form(Contato.class);
 		return ok(views.html.index.render(contatos, contatoForm));
-	}
-
-	public Result excluir(String contato) {
-		String email = session("email");
-		if (email == null) {
-			return redirect("/login");
-		}
-		getAgenda(email).remove((Object) contato);
-		return redirect("/");
 	}
 
 	public Result novo() {
@@ -58,15 +52,37 @@ public class AgendaController extends Controller {
 		if (usuario == null) {
 			return redirect("/login");
 		}
-		Optional<Contato> contato = getAgenda(usuario).stream().filter(c -> c.email.equals(email)).findFirst();
-		if (contato.isPresent()){
+		Optional<Contato> contato = getContato(usuario, email);
+		if (contato.isPresent()) {
 			Form<Contato> contatoForm = formFactory.form(Contato.class).fill(contato.get());
 			return ok(views.html.editar.render(contatoForm));	
 		}
 		return redirect("/");
 	}
 
-	public Result salvar(){
-		return TODO;
+	public Result salvar() {
+		String usuario = session("email");
+		if (usuario == null) {
+			return redirect("/login");
+		}
+		Contato novoContato = formFactory.form(Contato.class).bindFromRequest().get();
+		Optional<Contato> contato = getContato(usuario, novoContato.getEmail());
+		if (contato.isPresent()) {
+			contato.get().setNome(novoContato.getNome());
+			contato.get().setTelefone(novoContato.getTelefone());
+		}
+		return redirect("/");
+	}
+
+	public Result excluir(String email) {
+		String usuario = session("email");
+		if (usuario == null) {
+			return redirect("/login");
+		}
+		Optional<Contato> contato = getContato(usuario, email);
+		if (contato.isPresent()) {
+			getAgenda(usuario).remove(contato.get());
+		}
+		return redirect("/");
 	}
 }
