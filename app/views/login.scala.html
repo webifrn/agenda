@@ -3,15 +3,15 @@
 @main("Login") {
   <h1>Login</h1>
   
-
-  <form action="/login" method="post"  class="form-inline">
-  <div class="form-group mx-sm-3 mb-2">
-    <input type="text" name="email" class="form-control" placeholder="email">
+  <form action="/login" method="post">
+  <div class="form-group">
+    <label for="email">Endereço de e-mail</label>
+    <input type="text" name="email" id="email" class="form-control" placeholder="email">
   </div>
-  <div class="form-group mx-sm-3 mb-2">
-  
-    <input type="password" name="senha" class="form-control" placeholder="senha">
+  <div class="form-group">
+    <label for="senha">Senha</label>
+    <input type="password" name="senha" id="senha" class="form-control" placeholder="senha">
   </div>
-    <button type="submit" class="btn btn-primary mb-2">Logar</button>
+  <button type="submit" class="btn btn-primary">Logar</button>
   </form>
 }

@@ -7,6 +7,8 @@ GET		/logout						controllers.LoginController.logout
 GET     /                           controllers.AgendaController.index
 GET		/delete/:email				controllers.AgendaController.excluir(email)
 POST	/new						controllers.AgendaController.novo
+GET     /edit/:email                controllers.AgendaController.editar(email)
+POST    /edit                       controllers.AgendaController.salvar
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

@@ -1,0 +1,19 @@
+@(contatoForm: Form[Contato], editar: Boolean = false)
+@import routes.{AgendaController => r}
+@rota = @{if(editar) r.salvar else r.novo}
+
+@b4.vertical.form(rota) { implicit vfc =>
+    @b4.text( contatoForm("nome"), '_label -> "Nome", 'placeholder -> "nome" )
+    @b4.email( contatoForm("email"), '_label -> "Email", 'placeholder -> "example@mail.com", 'readonly -> editar )
+    @b4.text( contatoForm("telefone"), '_label -> "Telefone", 'placeholder -> "telefone" )
+    @if(editar){
+        @b4.submit('class -> "btn btn-primary"){ Salvar }
+    } else {
+        @b4.submit('class -> "btn btn-primary"){ Inserir }
+    }
+}
+@if(editar){
+    @b4.vertical.form(r.index){ implicit vfc =>
+        @b4.submit('class -> "btn btn-danger"){ Cancelar }
+    }
+}
